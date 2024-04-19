@@ -1,0 +1,69 @@
+﻿@model PBL3.Models.KhuyenMai
+
+@{
+    ViewBag.Title = "Tạo mới khuyến mãi";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Tạo mới khuyến mãi</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <hr />
+    <div class="form-horizontal px-5">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <p>@Html.Raw(ViewBag.Error) </p>
+        <div class="form-group ">
+            <label class="py-1">Ngày bắt đầu<span class="text-danger">(*)</span></label>
+            <div class="col-md-3 py-1">
+                <input type="datetime-local" class="form-control" name="BatDauKM" />
+                @Html.ValidationMessageFor(model => model.BatDauKM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="py-1">Ngày kết thúc<span class="text-danger">(*)</span></label>
+            <div class="col-md-3 py-1">
+                <input type="datetime-local" class="form-control" name="KetThucKM" />
+                @Html.ValidationMessageFor(model => model.KetThucKM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="py-1">Nội dung<span class="text-danger">(*)</span></label>
+            <div class="col-md-3 py-1">
+                @Html.EditorFor(model => model.NoiDungKM, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NoiDungKM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="py-1">Loại<span class="text-danger">(*)</span></label>
+            <div class="col-md-3 py-1">
+                @Html.DropDownList("LoaiKM", new SelectList(new List<Object>
+           {
+               new {value = 0, text ="Giảm trực tiếp"},
+               new {value = 1, text ="Theo phần trăm"},
+           },
+           "value",
+           "text"
+
+           ), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LoaiKM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group" style="display: flex; padding: 20px 0">
+            <div class="col-md-offset-2 text-right px-4">
+                <button type="submit" value="Save" class="btn btn-md btn-success"><i class="fa-solid fa-plus"></i> Thêm mới</button>
+            </div>
+            <div class="col-md-offset-2 ">
+                <button type="button" name="back" class="btn btn-info btn-md" onclick="location.href='/Admin/KhuyenMais/Index'"><i class="fa-solid fa-left-long" style="padding-right: 5px;"></i>Quay lại</button>
+            </div>
+        </div>
+    </div>
+}
+

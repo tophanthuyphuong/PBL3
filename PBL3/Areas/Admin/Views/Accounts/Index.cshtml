@@ -1,0 +1,50 @@
+﻿@model IEnumerable<PBL3.Models.Account>
+
+@{
+    ViewBag.Title = "Danh sách account";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Danh sách Account</h2>
+
+
+<table class="table mt-3" >
+    <tbody style="border: 2px solid">
+
+
+        <tr style="background-color: aliceblue">
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                Quyền truy cập
+            </th>
+            <th>
+                Tên
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+
+                <td>
+                    @if (item.Quyen == 0)
+                    {<div>Admin</div> }
+                    else
+                    {<div>Khách hàng</div>}
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Ten)
+                </td>
+                <td>
+                    <a href="/Admin/Accounts/Change/@item.ID_Account" class="btn btn-sm btn-info"> <i class="fa-solid fa-pen-to-square"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

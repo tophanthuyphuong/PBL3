@@ -1,0 +1,59 @@
+﻿@model PBL3.Models.KhuyenMai
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>KhuyenMai</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BatDauKM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BatDauKM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KetThucKM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KetThucKM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NoiDungKM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoiDungKM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LoaiKM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoaiKM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_KM }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

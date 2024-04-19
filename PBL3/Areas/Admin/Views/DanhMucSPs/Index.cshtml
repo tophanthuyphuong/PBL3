@@ -1,0 +1,45 @@
+﻿@model IEnumerable<PBL3.Models.DanhMucSP>
+
+@{
+    ViewBag.Title = "Danh mục sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Danh mục sản phẩm</h2>
+
+<p>
+    <div class="col-md-offset-2 text-right">
+        <a href="/Admin/DanhMucSPs/Create" class="btn btn-sm btn-info"> <i class="fa-solid fa-plus"></i> Thêm mới</a>
+    </div>
+</p>
+<table class="table mt-3" style="border: 2px solid">
+    <tr style="background-color: aliceblue">
+        <th>
+            Tên danh mục
+        </th>
+        <th>
+            Trạng thái
+        </th>
+        <td></td>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenDanhMuc)
+            </td>
+            <td>
+                @if (item.Status == 0)
+                {<div>Đã xóa</div> }
+                else
+                {<div>Tồn tại</div>}
+            </td>
+            <td>
+                <a href="/Admin/DanhMucSPs/Edit/@item.ID_Danhmuc" class="btn btn-sm btn-info"> <i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="/Admin/DanhMucSPs/Trash/@item.ID_Danhmuc" class="btn btn-sm btn-danger "><i class="fa-solid fa-trash"></i></a>
+            </td>
+        </tr>
+    }
+
+</table>

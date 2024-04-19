@@ -1,0 +1,181 @@
+﻿@model PBL3.Models.Model_View.DangKy
+
+@{
+    ViewBag.Title = "Đăng ký";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+@using (Html.BeginForm("DangKy", "DangNhapDangKy", FormMethod.Post))
+{
+    <html lang="en">
+    
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Đăng ký</title>
+
+        @*Custom fonts for this template*@
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+              rel="stylesheet">
+        <link rel="stylesheet" href="~/fonts/Quicksand-VariableFont_wght.ttf">
+
+        @*Custom styles for this template*@
+        <link href="~/Content/sb-admin-2.css" rel="stylesheet" />
+
+    </head>
+    <body class="bg-gradient-primary">
+        <div class="container">
+            
+            <div class="card o-hidden border-0 shadow-lg my-6">
+                <div class="card-body p-0">
+                    @*Nested Row within Card Body*@
+                    <div class="row">
+                        <div class="col-lg-5 d-none d-lg-block">
+
+                            <div class="bg-register-image">
+
+                                <img src="~/Anh/img/Logo.png" alt="" style="width: 320px; padding: 50px 0 50px 50px">
+                                <div class="text-center">
+                                    <h1 class="h3 text-gray-900 mb-4 p-5" style="font-family: 'Quicksand'; font-style: italic; font-weight: bold;">Đăng ký tài khoản</h1>
+                                </div>
+                                <img src="~/Anh/img/register_img.png" alt="" , style="padding-top: 0px; width: 430px;">
+                            </div>
+
+                        </div>
+                        <hr />
+                        
+                        <div class="col-lg-7">
+                            <div class="p-5">
+                                <a href="~/Trang-chu">
+                                    <img src="~/Anh/img/img/x-circle(1).png" alt="" style="position: absolute; right: 11px; top: 0; padding: 5px;">
+                                </a>
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                
+                                <form class="user">
+                                    <div class="row">
+
+                                        <div class="col-form-label">Họ và tên</div>
+                                        <div class="col-form-label" , style="color: red;">*</div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.Ten, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Ten, "", new { @class = "text-danger" })
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-form-label">Giới tính</div>
+                                        <div class="col-form-label" , style="color: red;">*</div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.DropDownList("GioiTinh", new SelectList(new List<Object>
+                                        {
+                                            new {value = false, text ="Nữ"},
+                                            new {value = true, text ="Nam"},
+                                        },
+                                        "value",
+                                        "text"
+                                        ), htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-form-label">Ngày sinh</div>
+                                        <div class="col-form-label" , style="color: red;">*</div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control", placeholder = "Ngày sinh", type = "date" } })
+                                        @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+                                        @Html.Raw(ViewBag.ErrorTuoi)
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-form-label">Địa chỉ</div>
+                                        <div class="col-form-label" , style="color: red;">*</div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control", placeholder = "Địa chỉ" } })
+                                        @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-form-label">Số điện thoại</div>
+                                        <div class="col-form-label" , style="color: red;">*</div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control", placeholder = "Số điện thoại" } })
+                                        @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-form-label">Email</div>
+                                        <div class="col-form-label" , style="color: red;">*</div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email" } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-form-label">Tên đăng nhập</div>
+                                        <div class="col-form-label" , style="color: red;">*</div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", placeholder = "Username" } })
+                                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-form-label">Mật khẩu</div>
+                                        <div class="col-form-label" , style="color: red;">*</div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password", type = "password" } })
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-form-label">Nhập lại mật khẩu</div>
+                                        <div class="col-form-label" , style="color: red;">*</div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", placeholder = "Confirm Password", type = "password" } })
+                                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                    </div>
+
+
+                                    <hr>
+
+                                    <button type="submit" class="btn btn-primary btn-user btn-block mt-4">Register</button>
+                                </form>
+                                <div class="text-center pt-4">
+                                    <a class="kbd" href="~/dang-nhap">Đã có tài khoản? Đăng nhập!</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Bootstrap core JavaScript*@
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        @*Core plugin JavaScript*@
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        @*Custom scripts for all pages*@
+        <script src="js/sb-admin-2.min.js"></script>
+
+    </body>
+</html>
+}
+

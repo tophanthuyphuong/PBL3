@@ -1,0 +1,96 @@
+﻿@model PBL3.Models.KhuyenMai
+
+@{
+    ViewBag.Title = "Cập nhật khuyến mãi";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cập nhật khuyến mãi</h2>
+
+@using (Html.BeginForm("Edit", "KhuyenMais", FormMethod.Post))
+{
+    <hr />
+    <div class="form-horizontal px-5">
+        @Html.HiddenFor(model => model.ID_KM)
+        <div class="form-group">
+            <p>@Html.Raw(ViewBag.Error) </p>
+            <div class=" col-md-2 py-1">
+                <label for="ngaybatdau">Ngày bắt đầu<span class="text-danger">(*)</span></label>
+            </div>
+            <div class="col-md-3 py-1">
+                @Html.TextBoxFor(model => model.BatDauKM, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control", type = "datetime-local" })
+                @*<input class="form-control" name="BatDauKM" value="@Html.Raw(ViewBag.Start.ToString("yyyy-MM-dd HH:mm").Replace(' ','T'))" type="datetime-local" />*@
+                @Html.ValidationMessageFor(model => model.BatDauKM, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class=" col-md-2 py-1">
+                <label for="ngayketthuc">Ngày kết thúc</label>
+            </div>
+            <div class="col-md-3 py-1">
+                @Html.TextBoxFor(model => model.KetThucKM, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control", type = "datetime-local" })
+                @*<input class="form-control" name="KetThucKM" value="@Html.Raw(ViewBag.End.ToString("yyyy-MM-dd HH:mm").Replace(' ','T'))" type="datetime-local" />*@
+                @Html.ValidationMessageFor(model => model.KetThucKM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class=" col-md-2 py-1">
+                <label for="noidung">Nội dung<span class="text-danger">(*)</span></label>
+            </div>
+            <div class="col-md-3 py-1">
+                @Html.EditorFor(model => model.NoiDungKM, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NoiDungKM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class=" col-md-2 py-1">
+                <label for="loai">Loại</label>
+            </div>
+            <div class="col-md-3 py-1">
+                @Html.DropDownList("LoaiKM", new SelectList(new List<Object>
+           {
+               new {value = 0, text ="Giảm trực tiếp"},
+               new {value = 1, text ="Theo phần trăm"},
+           },
+           "value",
+           "text",
+           Model.LoaiKM
+           ), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LoaiKM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class=" col-md-2 py-1">
+                <label for="status">Trạng thái</label>
+            </div>
+            <div class="col-md-3 py-1">
+                @Html.DropDownList("Status",
+               new SelectList(
+                      new List<Object>{
+                           new { value = 0 , text = "Đã hết hạn"  },
+                           new { value = 1 , text = "Tồn tại" },
+                        },
+                      "value",
+                      "text",
+                       Model.Status
+               ), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display: flex; padding: 20px 0">
+            <div class="col-md-offset-2 text-right px-4">
+                <button type="submit" value="Save" class="btn btn-md btn-success"><i class="fa-solid fa-floppy-disk"></i> Lưu thay đổi</button>
+            </div>
+            <div class="col-md-offset-2 ">
+                <button type="button" name="back" class="btn btn-info btn-md" onclick="location.href='/Admin/KhuyenMais/Index'"><i class="fa-solid fa-left-long" style="padding-right: 5px;"></i>Quay lại</button>
+            </div>
+        </div>
+    </div>
+}
+

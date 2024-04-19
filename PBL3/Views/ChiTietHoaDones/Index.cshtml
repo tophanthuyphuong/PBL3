@@ -1,0 +1,79 @@
+﻿@model IEnumerable<PBL3.Models.ChiTietHoaDon>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link href="~/Content/GioHang.css" rel="stylesheet" />
+}
+<h2 style="color: #359DD9">Chi tiết hóa đơn</h2>
+
+
+<table class="table" style="margin-bottom: 50px">
+    <thead>
+        <tr>
+            <th>
+                Tên sản phẩm
+            </th>
+            <th>
+                Số lượng
+            </th>
+            <th>
+                Tổng tiền
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    @{
+        double total = 0.0;
+        double total1 = 0.0;
+    }
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="text-align: left; display: flex; align-items: center">
+                <img src="~/Anh/@item.SanPham.Anh" alt="" style="height: 100%; width: 100px;">
+                @Html.DisplayFor(modelItem => item.SanPham.TenSP)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuong)
+            </td>
+            <td>
+                @{
+                    if (item.SanPham.KhuyenMai.LoaiKM == 0 && item.SanPham.KhuyenMai.Status == 1)
+                    {
+                        total1 = (double)((item.SanPham.GiaBan - Convert.ToDouble(item.SanPham.KhuyenMai.NoiDungKM)) * item.SoLuong);
+                    }
+                    else if (item.SanPham.KhuyenMai.Status == 1)
+                    {
+                        total1 = (double)((item.SanPham.GiaBan - (Convert.ToDouble(item.SanPham.KhuyenMai.NoiDungKM) / 100) * item.SanPham.GiaBan) * item.SoLuong);
+                    }
+                    else
+                    {
+                        total1 = (double)(item.SanPham.GiaBan * item.SoLuong);
+                    }
+                    total = total + total1;
+
+                }
+                @String.Format("{0:N0}đ", total1)
+            </td>
+            <td>
+                <a href="~/Chi-tiet-san-pham-@item.ID_SP" class="btn btn-primary"> Chi tiết sản phẩm</a>
+            </td>
+        </tr>
+
+    }
+    <tr style="border: 2px solid #359DD9">
+        <td style="font-weight: bold">Thành tiền </td>
+        <td></td>
+        <td style="color: #359DD9; font-weight: bold">@String.Format("{0:N0}đ", total)</td>
+    </tr>
+</table>
+<div style="display: flex; justify-content: center">
+    <a href="~/MuaHangs/XemHoaDon" class="btn btn--more" style="margin: auto"> Quay lại</a>
+</div>

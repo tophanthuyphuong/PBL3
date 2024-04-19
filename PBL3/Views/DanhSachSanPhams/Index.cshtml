@@ -1,0 +1,81 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model PagedList.IPagedList<PBL3.Models.SanPham>
+
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link href="~/Content/DanhSach.css" rel="stylesheet" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+}
+<div class="container">
+    <ul class="container__category-menu">
+        <li class="category-menu__items">@Html.ActionLink("Tất cả sản phẩm", "Index", "DanhSachSanPhams", new { @DanhMucsp = "" }, null)</li>
+        @{
+            List<String> list = (List<String>)System.Web.HttpContext.Current.Session["ListDanhMuc"];
+        }
+        @foreach (String listDanhMuc in list)
+        {
+            <li class="category-menu__items">@Html.ActionLink(listDanhMuc, "Index", "DanhSachSanPhams", new { @DanhMucsp = listDanhMuc }, null)</li>
+        }
+
+    </ul>
+    <div class="container__main">
+        <h2 style="color: #359DD9;">Sản phẩm</h2>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="row--item">
+                    <a href="~/Chi-tiet-san-pham-@item.ID_SP">
+                        <div class="item--photo">
+                            <img src="~/Anh/@item.Anh" alt="" style="height: 200px; width: 100%;">
+                        </div>
+                        <div class="item--name">
+                            @Html.DisplayFor(modelItem => item.TenSP)
+                        </div>
+                        <div class="item--brand">
+                            @Html.DisplayFor(modelItem => item.NhanHieuSP)
+                        </div>
+                        @{
+                            if (item.ID_KM == null || item.KhuyenMai.Status == 0 || item.KhuyenMai.NoiDungKM == "0")
+                            {
+                                                <div class="item--price">
+                                                    @String.Format("{0:N0}đ", item.GiaBan)
+                                                </div>
+                            }
+                            else
+                            {
+                                <div class="item--price">
+                                    <div class="item--price old">@String.Format("{0:N0}đ", item.GiaBan)</div>
+                                    @{
+                                        double total = 0.0;
+                                        if (item.KhuyenMai.LoaiKM == 0 && item.KhuyenMai.KetThucKM >= DateTime.Now)
+                                        {
+                                            total = Convert.ToDouble(item.GiaBan) - Convert.ToDouble(item.KhuyenMai.NoiDungKM);
+                                        }
+                                        else if (item.KhuyenMai.LoaiKM == 1 && item.KhuyenMai.KetThucKM >= DateTime.Now)
+                                        {
+                                            total = Convert.ToDouble(item.GiaBan) * (1 - Convert.ToDouble(item.KhuyenMai.NoiDungKM) / 100);
+                                        }
+                                        else
+                                        {
+                                            total = Convert.ToDouble(item.GiaBan);
+                                        }
+                                    }
+                                    @String.Format("{0:N0}đ", total)
+                                </div>
+                            }
+                        }
+                    </a>
+                </div>
+            }
+
+
+        </div>
+        <br />
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, Danhmucsp = ViewBag.DanhMuc, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+</div>

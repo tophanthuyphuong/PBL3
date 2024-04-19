@@ -1,0 +1,51 @@
+﻿@model PBL3.Models.Account
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Account</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quyen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quyen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Ten)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Ten)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_Account }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

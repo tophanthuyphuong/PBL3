@@ -1,0 +1,97 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model PagedList.IPagedList<PBL3.Models.HoaDon>
+@{
+    ViewBag.Title = "Danh sách hóa đơn";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="~/Content/HoaDon.css" rel="stylesheet" />
+<h2>Danh sách hóa đơn</h2>
+
+<div class="main-container">
+    <ul class="container__category-menu">
+        @{
+            List<string> list = new List<string>() { "Chưa xác nhận", "Đã xác nhận", "Đã hủy" };
+        }
+        <li class="category-menu__items" style="background-color: #e7aa2e">@Html.ActionLink("Chưa xác nhận", "Index", "HoaDons", new { @status = "Chưa xác nhận" }, null)</li>
+        <li class="category-menu__items" style="background-color: #1bbe73">@Html.ActionLink("Đã xác nhận", "Index", "HoaDons", new { @status = "Đã xác nhận" }, null)</li>
+        <li class="category-menu__items" style="background-color: #e74b2e">@Html.ActionLink("Đã hủy", "Index", "HoaDons", new { @status = "Đã hủy" }, null)</li>
+
+    </ul>
+    <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        @using (Html.BeginForm("Index", "HoaDons", FormMethod.Get))
+        {
+
+            <div class="input-group">
+                <input class="form-control" type="text" name="Searchtxt" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-info" id="Searchtxt" type="submit"><i class="fas fa-search"></i></button>
+            </div>
+
+        }
+    </div>
+</div>
+<table class="table mt-3" style="border: 2px solid; ">
+    <tr style="background-color: aliceblue; border: 1px solid;">
+        <th>
+            Tên người nhận
+        </th>
+        <th>
+            Ngày lập hóa đơn
+        </th>
+        <th>
+            Địa chỉ nhận
+        </th>
+        <th>
+            SDT
+        </th>
+        <th>
+            Trạng thái
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenNguoiNhan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayBan)
+            </td>
+            <td style="width: 35%">
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sdt)
+            </td>
+            <td>
+                @if (item.Status == 0)
+                {
+                    <div>Chưa xác nhận</div>
+                }
+                else if (item.Status == 1)
+                {
+                    <div>Đã xác nhận</div>
+                }
+                else
+                {
+                    <div>Đã hủy</div>
+                }
+            </td>
+            <td>
+                <a href="/Admin/ChiTietHoaDons/Index/@item.ID_HoaDon" class="btn btn-sm btn-info"> <i class="fa-sharp fa-solid fa-circle-info"></i></a>
+                @if (item.Status == 0)
+                {
+                    <a href="/Admin/HoaDons/Confirm/@item.ID_HoaDon" class="btn btn-sm btn-success"><i class="fa-solid fa-circle-check"></i></a>
+                }
+
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+@Html.PagedListPager(Model, page => Url.Action("Index",
+new { page, currentFilter = ViewBag.CurrentFilter, status = ViewBag.Status  }))

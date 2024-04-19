@@ -1,0 +1,195 @@
+﻿@model PBL3.Models.Model_View.GioHangs
+
+
+@{
+    ViewBag.Title = "Xác nhận hóa đơn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link href="~/Content/GioHang.css" rel="stylesheet" />
+}
+<h2 style="color: #359DD9">Thông tin hóa đơn</h2>
+@using (Html.BeginForm("DatMua", "MuaHangs", FormMethod.Post))
+{
+    <table class="table" style="margin-bottom: 50px">
+        <thead>
+            <tr>
+                <th>
+                    Tên sản phẩm
+                </th>
+                <th>
+                    Số lượng
+                </th>
+                <th>
+                    Tổng tiền
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        @{
+            double total = 0.0;
+            double total1 = 0.0;
+
+        }
+        @foreach (var item in Model.Items.Where(p => p.Status == true && p.SoLuong != 0))
+        {
+            <tr>
+                <td style="text-align: left; display: flex; align-items: center">
+                    <img src="~/Anh/@item.SanPhamGioHang.Anh" alt="" style="height: 100%; width: 100px;">
+                    @Html.DisplayFor(modelItem => item.SanPhamGioHang.TenSP)
+
+                </td>
+                <td>
+                    @item.SoLuong
+                    <input type="hidden" value="@item.SoLuong" name="SoLuongSanPham" />
+                    <input type="hidden" value="@item.SanPhamGioHang.ID_SP" name="idSanPham" />
+                </td>
+                <td>
+                    @{
+                        if (item.SanPhamGioHang.KhuyenMai.LoaiKM == 0 && item.SanPhamGioHang.KhuyenMai.Status == 1)
+                        {
+                            total1 = (double)((item.SanPhamGioHang.GiaBan - Convert.ToDouble(item.SanPhamGioHang.KhuyenMai.NoiDungKM)) * Convert.ToInt32(item.SoLuong));
+                        }
+                        else if (item.SanPhamGioHang.KhuyenMai.LoaiKM == 1 && item.SanPhamGioHang.KhuyenMai.Status == 1)
+                        {
+                            total1 = (double)((item.SanPhamGioHang.GiaBan - (Convert.ToDouble(item.SanPhamGioHang.KhuyenMai.NoiDungKM) / 100) * item.SanPhamGioHang.GiaBan) * Convert.ToInt32(item.SoLuong));
+
+                        }
+                        else
+                        {
+                            total1 = (double)(item.SanPhamGioHang.GiaBan * Convert.ToInt32(item.SoLuong));
+                        }
+
+
+                        total = total + total1;
+
+                    }
+                    @String.Format("{0:N0}đ", total1)
+                </td>
+            </tr>
+
+        }
+        <tr style="border: 2px solid #359DD9">
+            <td style="font-weight: bold">Thành tiền </td>
+            <td></td>
+            <td style="color: #359DD9; font-weight: bold">@String.Format("{0:N0}đ", total)</td>
+        </tr>
+    </table>
+    <h2 style="color: #359DD9">Thông tin khách hàng</h2>
+    <div class="info">
+        <div class="row-info">
+            <h4>
+                Tên người nhận
+                <span style="color: red;">*</span>
+            </h4>
+
+                <div class="input">
+                    <input type="text" class="form-control form-control-user" name="TenNguoiNhan" value="@ViewBag.TenNguoiNhan" onblur="checkInputTNN(this)">
+                    <span id="tennguoinhan-error" style="color: red; display: none;"> Nếu để trống sẽ trùng với tên đã đăng ký.</span>
+                </div>
+
+                <script>
+                function checkInputTNN(input) {
+                var diachiError = document.getElementById("tennguoinhan-error");
+                var inputValue = input.value.trim();
+                if (inputValue.length == 0) {
+                diachiError.style.display = "inline";
+                } else {
+                    diachiError.style.display = "none";
+                }
+                }
+                </script>
+            
+        </div>
+
+        <div class="row-info">
+            <h4>
+                Địa chỉ
+                <span style="color: red;">*</span>
+            </h4>
+            <div class="input">
+                <input type="text" class="form-control form-control-user" name="DiaChi" value="@ViewBag.DiaChi" onblur="checkInputDC(this)">
+                <span id="diachi-error" style="color: red; display: none;"> Nếu để trống sẽ trùng với địa chỉ đã đăng ký.</span>
+            </div>
+
+            <script>
+                function checkInputDC(input) {
+                var diachiError = document.getElementById("diachi-error");
+                var inputValue = input.value.trim();
+                if (inputValue.length == 0) {
+                diachiError.style.display = "inline";
+                } else {
+                    diachiError.style.display = "none";
+                }
+                }
+            </script>
+        </div>
+        <div class="row-info">
+            <h4>
+                Số điện thoại
+                <span style="color: red;">*</span>
+            </h4>
+
+            <div class="input">
+                <input type="text" class="form-control form-control-user" name="Sdt" value="@ViewBag.SDT" maxlength="10" oninput="checkInputSDT(this)">
+                <span id="sdt-error" style="color: red; display: none;"> Số điện thoại phải có đúng 10 kí tự số. Nếu không đúng định dạng thì sẽ nhận số điện thoại đã đăng ký</span>
+                <script>
+                    function checkInputSDT(input) {
+                        var maxLength = 10;
+                        var sdtError = document.getElementById("sdt-error");
+                        var inputValue = input.value.trim();
+                        if (inputValue.length > maxLength) {
+                            input.value = inputValue.slice(0, maxLength);
+                            sdtError.style.display = "inline";
+                        } else if (!/^\d{10}$/.test(inputValue)) {
+                            sdtError.style.display = "inline";
+                        } else {
+                            sdtError.style.display = "none";
+                        }
+                    }
+                </script>
+
+            </div>
+        </div>
+
+        <div class="row-info">
+            <h4>
+                Email
+            </h4>
+            <div class="input">
+                <input type="email" class="form-control form-control-user"
+                       id="Email" value="@ViewBag.Email">
+            </div>
+        </div>
+        <div style="margin: auto; display: flex; margin-top: 20px; justify-content: center;">
+            <button type="submit" class="btn btn-primary">
+                Đặt mua
+
+            </button>
+            <span class="overlay"></span>
+
+            <div class="modal-box">
+                <i class="fa-regular fa-circle-question" style=" font-size: 70px; color: #4070f4;"></i>
+                <h2>Bạn có chắc muốn mua sản phẩm này không ?</h2>
+
+                <div class="buttons">
+                    <button type="submit" class="btn1 btn-submit"> Xác nhận </button>
+                    @*<div class="buttons">*@
+                    <button type="button" class="btn1 btn-danger" onclick="window.location.href='Gio-hang'">Hủy bỏ</button>
+
+                    @*</div>*@
+                </div>
+            </div>
+            <a href="~/Gio-hang" class="btn btn--register" style="margin-left: 15px"> Quay lại</a>
+
+        </div>
+    </div>
+
+
+
+}
+
+
+

@@ -1,0 +1,21 @@
+.container{
+    padding-bottom: 100px;
+    
+}
+.container__content{
+    display: flex;
+    margin: 70px 120px;
+    background-color: transparent;
+}
+.content--img img{
+    width: 570px;
+}
+.content{
+    padding-left: 60px;
+    width: 100%;
+}
+.content--value{
+    padding: 5px;
+    font-style: italic;
+    font-weight: 500;
+}

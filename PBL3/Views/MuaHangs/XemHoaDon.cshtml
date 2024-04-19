@@ -1,0 +1,67 @@
+﻿@model IEnumerable<PBL3.Models.HoaDon>
+
+@{
+    ViewBag.Title = "XemHoaDon";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link href="~/Content/GioHang.css" rel="stylesheet"/>
+}
+<h2 style="color: #359DD9">Lịch sử mua hàng</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Ngày đặt mua
+            </th>
+            <th>
+                 Trạng thái
+            </th>
+            <th>
+
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayBan)
+            </td>
+            <td>
+                @if (item.Status == 0)
+                {
+                    <div class="tag tag-warning">Chưa xác nhận</div>
+                }
+                else if (item.Status == 1)
+                {
+                    <div class="tag tag-success">Đã xác nhận</div>
+                }
+                else
+                {
+                    <div class="tag tag-danger">Đã hủy</div>
+                }
+            </td>
+            <td>
+                <a href="~/ChiTietHoaDones/Index/@item.ID_HoaDon" class="btn btn-sm btn-primary ">Xem chi tiết</a>
+            </td>
+            <td>
+
+                @using (Html.BeginForm("HuyHoaDon", "MuaHangs", FormMethod.Post))
+                {
+                    if (item.Status == 0)
+                    {
+
+                        <button type="submit" class="btn btn-danger">Hủy đơn hàng</button>
+                        <input type="hidden" name="idhoadon" value="@item.ID_HoaDon" />
+                    }
+                }
+            </td>
+
+
+        </tr>
+    }
+
+</table>

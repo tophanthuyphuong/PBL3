@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.4.0-web/css/all.min.css">
+    <link rel="stylesheet" href="./assets/fonts/Quicksand/Quicksand-VariableFont_wght.ttf">
+
+    <title>Document</title>
+</head>
+<body>
+    <div class="main">
+        <header class="header">
+            <div class="header-search">
+                <div class="header__logo">
+                    <img src="./assets/img/Logo.png" alt="Logo">
+                </div>
+
+                <div class="header__search">
+                    <input type="text" class="header__search-input" placeholder="Tìm kiếm sản phẩm">
+                    <div class="header__search--button">
+                        <span class="header__search--button-label">Tìm kiếm</span>
+                        <i class="header__search--button-icon fa-solid fa-magnifying-glass" style="color: #ffffff;"></i>
+                    </div>
+                </div>
+
+                <div class="header__button">
+                    <a href="login.html" class="btn btn--sign-in">Đăng nhập</a>
+                    <a href="register.html" class="btn btn--register">Đăng ký</a>
+                </div>
+            </div>
+            <nav class="header__navbar">
+                <div class="btn--category">
+                    Danh mục sản phẩm
+                    <div class="header__navbar--category-down">
+                        <i class="  fa-solid fa-angle-down"></i>
+                    </div>
+                    <ul class="category-menu">
+                        <li class="category-menu__items">Tất cả sản phẩm</li>
+                        <li class="category-menu__items">Tivi</li>
+                        <li class="category-menu__items">Tủ lạnh</li>
+                        <li class="category-menu__items">Máy lạnh</li>
+                        <li class="category-menu__items">Đồ gia dụng</li>
+                        <li class="category-menu__items">Loa</li>
+                        <li class="category-menu__items">Máy giặt</li>
+                        <li class="category-menu__items">Máy lọc nước</li>
+                        <li class="category-menu__items">Tủ đông</li>
+                    </ul>
+                </div>
+
+                <ul class="header__navbar-list">
+                    <li class="header__navbar-item">
+                        <div class="header__navbar-item--icon">
+                            <i class="fa-solid fa-house fa-xl"></i>
+                        </div>
+                        Trang chủ
+                    </li>
+                    <li class="header__navbar-item">
+                        <div class="header__navbar-item--icon">
+                            <i class="fa-solid fa-circle-info fa-xl"></i>
+                        </div>
+                        Giới thiệu
+                    </li>
+                    <li class="header__navbar-item">
+                        <div class="header__navbar-item--icon">
+                            <i class="fa-solid fa-gifts fa-xl"></i>
+                        </div>
+                        Khuyến mãi
+                    </li>
+                    <li class="header__navbar-item">
+                        <div class="header__navbar-item--icon">
+                            <i class="fa-solid fa-comments fa-xl"></i>
+                        </div>
+                        Liên hệ
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="container">
+            @RenderBody()
+        </div>
+
+        <footer class="footer">
+            <div class="footer-logo">
+                <div class="footer__logo">
+                    <img src="./assets/img/logo2.png" alt="Logo">
+                </div>
+                <div class="footer__contact">
+                    <div class="footer__contact-icon" style="padding-right: 5px;">
+                        <i class="fa-solid fa-location-dot fa-lg"></i>
+                    </div>
+                    54 Nguyễn Lương Bằng, Hòa Khánh Bắc, <br> Liên Chiểu, TP. Đà Nẵng
+                </div>
+                <div class="footer__contact">
+                    <div class="footer__contact-icon">
+                        <i class="fa-solid fa-phone fa-lg"></i>
+                    </div>
+                    (+84) 236 3842 308
+                </div>
+                <div class="footer__contact">
+                    <div class="footer__contact-icon">
+                        <i class="fa-solid fa-envelope fa-lg"></i>
+                    </div>
+                    electronicsshop@gmail.com
+                </div>
+            </div>
+            <div class="footer__category">
+                <span class="category-header">Danh mục sản phẩm</span>
+                <ul class="category">
+                    <li class="category-item">Tivi</li>
+                    <li class="category-item">Tủ lạnh</li>
+                    <li class="category-item">Máy giặt</li>
+                    <li class="category-item">Máy lạnh</li>
+
+                    <li class="category-item">Loa</li>
+                    <li class="category-item">Máy lọc nước</li>
+                    <li class="category-item">Đồ gia dụng</li>
+                    <li class="category-item">Tủ đông</li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

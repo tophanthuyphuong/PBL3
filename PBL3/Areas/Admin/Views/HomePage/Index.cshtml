@@ -1,0 +1,105 @@
+﻿@model IEnumerable<PBL3.Models.Model_View.ThongKeSanPham>
+@{
+    ViewBag.Title = "Thông kê";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Thống kê</h2>
+<div class="row justify-content-center">
+    <div class="col-lg-4 col-md-12">
+        <div class="white-box analytics-info" style="background: #e6e61c; box-shadow: 0px 3px 3px 3px #888888; ">
+            <h4 class="box-title">Tổng doanh thu</h4>
+            
+            <ul class="my-ul">
+                <li>
+                <h5 class="ms-auto"><span class="counter text-success">@String.Format("{0:N0}đ", @ViewBag.total)</span></h5>
+                </li>
+                @if (ViewBag.yeartotal >= ViewBag.preyeartotal && ViewBag.preyeartotal != 0)
+                {
+                   
+                        <li class="ms-auto"><span class="counter text-success"> Tăng @(((double)ViewBag.yeartotal/(double)ViewBag.preyeartotal)*100) <i class="fa-solid fa-arrow-up"></i></span></li>
+                  
+                        }
+                        else if (ViewBag.yeartotal < ViewBag.preyeartotal && ViewBag.preyeartotal != 0)
+                        {
+                    
+                        <li class="ms-auto"><span class="counter text-success"> Giảm @(((double)ViewBag.yeartotal/(double)ViewBag.preyeartotal)*100) <i class="fa-solid fa-arrow-down" style="color: red"></i></span></li>
+                    
+                    }
+
+                  
+                </ul>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-12">
+        <div class="white-box analytics-info" style="background: #00eb00; box-shadow: 0px 3px 3px 3px #888888; ">
+            <h4 class="box-title" >Doanh thu hôm nay</h4>
+            <ul class="my-ul">
+                <li>
+                <h5 class="ms-auto"><span class="counter text-purple">@String.Format("{0:N0}đ", @ViewBag.datetotal)</span></h5>
+                </li>
+                </ul>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-12">
+        <a href="~/Admin/HoaDons?status=Chưa%20xác%20nhận">
+            <div class="white-box analytics-info" style="background: #2b57d9; box-shadow: 0px 3px 3px 3px #888888;">
+                <h4 class="box-title">Hóa đơn chưa xác nhận</h4>
+                <ul class="my-ul">
+                    <li>
+                        <h5 class="ms-auto">
+                            <span class="counter text-info" style="color:black"> @ViewBag.sohoadon</span>
+                        </h5>
+                    </li>
+                </ul>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const ctx = document.getElementById('myChart');
+    const listlabels = @Html.Raw(Json.Encode(Model.Select(p => p.TenSP).ToList()));
+    const listdatas = @Html.Raw(Json.Encode(Model.Select(p => p.SoLuong).ToList()));
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            datasets: [{
+                label: '',
+                data: listdatas,
+            }],
+            labels: listlabels,
+        },
+        options: {
+            indexAxis: 'y',
+
+            elements: {
+                bar: {
+                    borderWidth: 0.2,
+                }
+            },
+            responsive: true,
+            plugins: {
+                legend: {
+
+                    position: 'right',
+                },
+                title: {
+                    display: true,
+                    text: 'Các mặt hàng bán được',
+                    font: {
+                        size: 20
+                        }
+                }
+            }
+        },
+    });
+</script>
+
+

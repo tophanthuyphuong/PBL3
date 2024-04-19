@@ -1,0 +1,105 @@
+﻿@model PBL3.Models.SanPham
+
+@{
+    ViewBag.Title = "Thông tin sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Thông tin sản phẩm</h2>
+
+<div>
+    <h4></h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên sản phẩm
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenSP)
+        </dd>
+
+        <dt>
+            Số lượng
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoLuong)
+        </dd>
+
+        <dt>
+            Giá bán
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GiaBan)
+        </dd>
+
+        <dt>
+            Nhãn hiệu
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NhanHieuSP)
+        </dd>
+
+        <dt>
+            Mẫu
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MauSP)
+        </dd>
+
+        <dt>
+            Mô tả
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MoTaSP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Anh)
+        </dt>
+
+        <dd>
+            <img src="~/Anh/@Model.Anh" style="height:200px;width:200px;margin:10px"/>
+        </dd>
+
+        <dt>
+            Trạng thái
+        </dt>
+
+        <dd>
+            @if (Model.Status == 0)
+            {<div>Đã xóa</div> }
+            else
+            {<div>Tồn tại</div>}
+        </dd>
+
+        <dt>
+            Danh mục
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DanhMucSP.TenDanhMuc)
+        </dd>
+
+        <dt>
+            Khuyến mãi
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KhuyenMai.NoiDungKM)
+        </dd>
+
+    </dl>
+</div>
+<p>
+
+    <a href="/Admin/SanPhams/Edit/@Model.ID_SP" class="btn btn-sm btn-info"> <i class="fa-solid fa-pen-to-square"> Thay đổi</i></a>
+    <button type="button" name="back" class="btn btn-success btn-md" onclick="location.href='/Admin/SanPhams/Index'">Quay lại</button>
+
+
+</p>

@@ -1,0 +1,120 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model PagedList.IPagedList<PBL3.Models.SanPham>
+
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<h2>Danh sách sản phẩm</h2>
+
+<p>
+    <div class="col-md-offset-2 text-right">
+        <a href="/Admin/SanPhams/Create" class="btn btn-group-lg btn-info"> <i class="fa-solid fa-plus"></i> Thêm mới</a>
+
+    </div>
+    <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        @using (Html.BeginForm("Index", "SanPhams", FormMethod.Get))
+        {
+
+            <div class="input-group">
+                <input class="form-control" type="text" name="Searchtxt" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-info" id="Searchtxt" type="submit"><i class="fas fa-search"></i></button>
+            </div>
+
+        }
+    </div>
+</p>
+<table class="table mt-3" style="border: 2px solid">
+    <thead style="border: 1px solid">
+        <tr style="background-color: aliceblue; vertical-align: middle">
+            <th style="width: 16%">
+                Tên sản phẩm
+            </th>
+            <th style="width: 5%">
+                Số lượng
+            </th>
+            <th style="width: 8%">
+                Giá bán
+            </th>
+            <th style="width: 8%">
+                Nhãn hiệu
+            </th>
+            <th style="width: 7%">
+                Mẫu
+            </th>
+            <th>
+                Mô tả
+            </th>
+            <th>
+                Img
+            </th>
+            <th style="width: 6%">
+                Trạng thái
+            </th>
+            <th style="width: 7%">
+                Danh mục
+            </th>
+            <th style="width: 6%">
+                Khuyến mãi
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenSP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiaBan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NhanHieuSP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MauSP)
+            </td>
+            <td style="width: 15%">
+                @Html.DisplayFor(modelItem => item.MoTaSP)
+            </td>
+            <td style="width: 10%; word-break: break-all">
+                @Html.DisplayFor(modelItem => item.Anh)
+            </td>
+            <td>
+                @if (item.Status == 0)
+                {<div>Đã xóa</div> }
+                else
+                {<div>Tồn tại</div>}
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DanhMucSP.TenDanhMuc)
+            </td>
+            <td>
+                @if (item.KhuyenMai.LoaiKM == 0)
+                {
+                    <div>@String.Format("{0:N0}đ", Convert.ToInt32(item.KhuyenMai.NoiDungKM))</div>
+                }
+                else
+                {
+                    <div>@item.KhuyenMai.NoiDungKM%</div>
+                }
+            </td>
+            <td>
+                <a href="/Admin/SanPhams/Edit/@item.ID_SP" class="btn btn-sm btn-info"> <i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="/Admin/SanPhams/Details/@item.ID_SP" class="btn btn-sm btn-info"> <i class="fa-sharp fa-solid fa-circle-info"></i></a>
+                <a href="/Admin/SanPhams/Trash/@item.ID_SP" class="btn btn-sm btn-danger "><i class="fa-solid fa-trash"></i></a>
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+@Html.PagedListPager(Model, page => Url.Action("Index",
+new { page, currentFilter = ViewBag.CurrentFilter }))

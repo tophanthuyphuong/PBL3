@@ -1,0 +1,35 @@
+﻿@model PBL3.Models.DanhMucSP
+
+@{
+    ViewBag.Title = "Tạo mới danh mục sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Tạo mới danh mục sản phẩm</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>DanhMucSP</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label class="py-1">Tên danh mục<span class="text-danger">(*)</span></label>
+        <div class="col-md-3">
+            @Html.EditorFor(model => model.TenDanhMuc, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TenDanhMuc, "", new { @class = "text-danger" })
+        </div>
+        </div>
+    <div class="form-group" style="display: flex; padding: 20px 0">
+        <div class="col-md-offset-2 text-right px-4">
+            <button type="submit" value="Save" class="btn btn-md btn-success"><i class="fa-solid fa-plus"></i> Thêm mới</button>
+        </div>
+        <div class="col-md-offset-2 ">
+            <button type="button" name="back" class="btn btn-info btn-md" onclick="location.href='/Admin/DanhMucSPs/Index'"><i class="fa-solid fa-left-long" style="padding-right: 5px;"></i>Quay lại</button>
+        </div>
+    </div>
+    </div>
+}
+

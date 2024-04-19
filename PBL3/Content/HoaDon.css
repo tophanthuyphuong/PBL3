@@ -1,0 +1,28 @@
+﻿.container__category-menu {
+    display: flex;
+    list-style: none;
+}
+
+.category-menu__items {
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: #0dcaf0;
+    width: 140px;
+    border: #ffffff solid 2px;
+    border-radius: 5px;
+    color: black;
+    text-align: center;
+}
+
+    .category-menu__items a {
+        text-decoration: none;
+        color: #ffffff;
+    }
+
+        .category-menu__items a:hover {
+            opacity: 0.7;
+        }
+
+.main-container {
+    display: flex;
+}

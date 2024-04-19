@@ -1,0 +1,97 @@
+﻿@model PBL3.Models.User
+
+@{
+    ViewBag.Title = "Thông tin cá nhân";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <link href="~/Content/ThongTinCaNhan.css" rel="stylesheet" />
+}
+<div class="container">
+
+    <div class="Profile">
+        <h3>Thông tin khách hàng:</h3>
+        
+        <div class="Profile-avatar">
+            @if (Model.Anh == null)
+            {
+                <img src="~/Anh/avatar.png" style="height:200px;width:200px;margin:10px" />
+            }
+            else
+            {
+                <img src="~/Anh/@Model.Anh" style="height:200px;width:200px;margin:10px" />
+            }
+        </div>
+        <div class="Profile-name">
+            <div class="Profile__icon">
+                <i class="fas fa-medal"></i>
+            </div>
+            <div class="name">
+                @Model.Ten
+            </div>
+
+        </div>
+
+        <div class="change-pass__button">
+            <a href="Thay-doi-thong-tin" class="btn--change-pass">Thay đổi thông tin</a>
+
+        </div>
+    </div>
+    <div class="item--detail">
+        <div class="row">
+            <h4>Họ và tên:</h4>
+            <div class="label">@Model.Ten</div>
+        </div>
+        <div class="row">
+            <h4>Ngày sinh:</h4>
+            <div class="label">
+                @{
+                    DateTime datetime = (DateTime)Model.NgaySinh;
+                    string date = datetime.ToString("dd/MM/yyyy");
+                }
+                @date
+            </div>
+        </div>
+        <div class="row">
+            <h4>Giới tính:</h4>
+            <div class="label">
+                @{
+                    string GT = "Nam";
+                    if (Model.GioiTinh == false)
+                    {
+                        GT = "Nữ";
+                    }
+                }
+                @GT
+            </div>
+        </div>
+        <div class="row">
+            <h4>Số điện thoại:</h4>
+            <div class="label">@Model.SDT</div>
+        </div>
+        <div class="row">
+            <h4>Địa chỉ:</h4>
+            <div class="label">
+                @Model.DiaChi
+            </div>
+        </div>
+        <div class="row">
+            <h4>Email: </h4>
+            <div class="label">
+                @Model.Email
+            </div>
+        </div>
+        <div class="row">
+            <h4>Số lần đặt mua:</h4>
+            <div class="label">
+                @{
+                    int count = Model.HoaDons.Count(x => x.ID_User == Model.ID_User);
+                }
+                @count
+            </div>
+        </div>
+    </div>
+</div>
+
+

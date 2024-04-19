@@ -1,0 +1,58 @@
+﻿@model IEnumerable<PBL3.Models.SanPham>
+@{
+    ViewBag.Title = "Trang chủ";
+}
+
+<div id="slider">
+    <figure>
+        <img src="~/Anh/img/home_ad_1.jpg">
+        <img src="~/Anh/img/home_ad_2.png">
+        <img src="~/Anh/img/home_ad_3.jpg">
+    </figure>
+</div>
+<h1>DANH MỤC SẢN PHẨM</h1>
+<div class="container__category">
+    @{
+        List<String> list = (List<String>)System.Web.HttpContext.Current.Session["ListDanhMuc"];
+    }
+    @foreach (String listDanhMuc in list)
+    {
+        <div class="category-box">
+            @{
+                var listAnh = @Model.Where(p => p.DanhMucSP.TenDanhMuc == listDanhMuc).FirstOrDefault();
+            }
+            @if (listAnh == null)
+            {
+                <a href="@Url.Action("Index", "DanhSachSanPhams",new { @DanhMucsp = listDanhMuc }, null)">
+                    <img src="https://pre-dispatcher.tclking.com/content/dam/brandsite/region/vietnam/tivi-tcl-55-inch/Q716-front.png?auto=webp,smallest" alt="" style="height: 100%; width: 100%;">
+                </a>
+
+            }
+            else
+            {
+                <a href="@Url.Action("Index", "DanhSachSanPhams",new { @DanhMucsp = listDanhMuc }, null)">
+                    <img src="~/Anh/@listAnh.Anh" alt="" style="height: 100%; width: 100%;">
+                </a>
+            }
+
+            <div class="category-box--label">
+                @Html.ActionLink(listDanhMuc, "Index", "DanhSachSanPhams", new { @DanhMucsp = listDanhMuc }, new { @class = "h4" })
+                <i class="fa-solid fa-chevron-right" style="padding: 15px; transition: .5s;"></i>
+            </div>
+        </div>
+    }
+</div>
+<div class="container__about">
+    <img src="~/Anh/img/Banner.png" alt="" style="cursor: default;width: calc(100% - 240px); margin: 0 120px; height: 400px; ">
+    <div class="container__about-label">
+        <h2 style="color: #76128a;">CÔNG TY CỔ PHẦN ELECTRONICS SHOP</h2>
+        <h4 style="color: #2d7cd6; font-style: italic; line-height: 2rem;">
+            Chuyên cung cấp các thiết bị điện gia dụng với nhiều mẫu mã
+            <br>
+            khác nhau, chất lượng cao với giá cả hợp lí. Trải qua hơn 10 năm
+            <br>
+            xây dựng và phát triển,....
+        </h4>
+        <div class="btn btn--more">Tìm hiểu thêm</div>
+    </div>
+</div>

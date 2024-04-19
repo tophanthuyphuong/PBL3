@@ -1,0 +1,156 @@
+﻿.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.main-container{
+    display: flex;
+    margin-top: 60px;
+}
+
+.avatar{
+    margin-right: 150px;
+}
+.avatar-img{
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+    .avatar-img img {
+
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+        border-radius: 50%;
+    }
+.avatar .row >input {
+    width: 300px;
+}
+.row > input {
+    width: 400px;
+    border: 2px solid #F0BB59;
+    border-radius: 8px;
+    padding: 5px;
+}
+.row > select {
+    width: 400px;
+    border: 2px solid #F0BB59;
+    border-radius: 8px;
+    padding: 5px;
+}
+.row{
+    padding-bottom:15px;
+}
+.row > label {
+    font-weight: bold;
+}
+.row label{
+    margin-bottom: 5px;
+}
+.body__button {
+    width: 450px;
+    text-align: center;
+    padding: 15px 0;
+    margin: auto;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity .2s ease;
+    border: none;
+}
+
+    .button:hover {
+        opacity: 0.7;
+    }
+
+    .button + .button {
+        margin-left: 16px;
+    }
+
+.btn-save {
+    background-color: #4848F4;
+    color: white;
+    padding: 15px 30px;
+}
+
+.btn-cancel {
+    background-color: #FF0000;
+    color: white;
+}
+
+.modal-box {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 380px;
+    width: 100%;
+    padding: 30px 20px;
+    border-radius: 24px;
+    background-color: #fff;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+.close-btn {
+    background-color: #4848F4;
+    color: white;
+    border: none;
+    padding: 5px 5px;
+    border-radius: 5px;
+}
+
+.overlay {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+section.active .overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+
+section.active .modal-box {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-box h3 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+.modal-box button {
+    font-size: 14px;
+    padding: 10px 20px;
+    margin: 0 10px;
+}
+
+.modal-box h2 {
+    margin-top: 20px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #333;
+}
+

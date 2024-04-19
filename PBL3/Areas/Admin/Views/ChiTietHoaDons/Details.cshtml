@@ -1,0 +1,64 @@
+﻿@model PBL3.Models.ChiTietHoaDon
+
+@{
+    ViewBag.Title = "Chi tiết hóa đơn";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chi tiết hóa đơn</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên sản phẩm
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SanPham.TenSP) @Model.ID_HoaDon
+        </dd>
+        <dt>
+            Số lượng
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoLuong)
+        </dd>
+        <dt>
+            Giá tiền
+        </dt>
+
+        <dd>
+            @{
+                double total = 0.0;
+                if (Model.SanPham.KhuyenMai.LoaiKM == 0 && Model.SanPham.KhuyenMai.Status == 1)
+                {
+                    total += Convert.ToDouble(Model.SoLuong * (Model.SanPham.GiaBan - Convert.ToDouble(Model.SanPham.KhuyenMai.NoiDungKM)));
+                }
+                else if (Model.SanPham.KhuyenMai.LoaiKM == 1 && Model.SanPham.KhuyenMai.Status == 1)
+                {
+                    total += Convert.ToDouble(Model.SoLuong * (Model.SanPham.GiaBan * (1 - Convert.ToDouble(Model.SanPham.KhuyenMai.NoiDungKM) / 100)));
+                }
+                else
+                {
+                    total += Convert.ToDouble(Model.SoLuong * Model.SanPham.GiaBan);
+                }
+            }
+            @String.Format("{0:N0}đ", total)
+        </dd>
+        <dt>
+            Ảnh sản phẩm
+        </dt>
+
+        <dd>
+            <img src="~/Anh/@Model.SanPham.Anh" style="height:200px;width:200px;margin:10px" />
+        </dd>
+
+
+
+    </dl>
+</div>
+<p>
+    <a href="/Admin/HoaDons/Index" class="btn btn-md btn-info"><i class="fa-solid fa-left-long" style="padding-right: 5px;"></i>Quay lại</a>
+</p>

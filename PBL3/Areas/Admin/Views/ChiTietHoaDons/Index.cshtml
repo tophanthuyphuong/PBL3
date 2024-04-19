@@ -1,0 +1,63 @@
+﻿@{ 
+
+}
+@model IEnumerable<PBL3.Models.ChiTietHoaDon>
+
+@{
+    ViewBag.Title = "Chi tiết hóa đơn";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chi tiết hóa đơn</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Tên sản phẩm
+        <th>
+            Số lượng
+        </th>
+        <th>
+            Giá tiền
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SanPham.TenSP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuong)
+            </td>
+            <td>
+                @{
+                    double total = 0.0;
+                    if (item.SanPham.KhuyenMai.LoaiKM == 0 && item.HoaDon.NgayBan <= item.SanPham.KhuyenMai.KetThucKM)
+                    {
+                        total += Convert.ToDouble(item.SoLuong * (item.SanPham.GiaBan - Convert.ToDouble(item.SanPham.KhuyenMai.NoiDungKM)));
+                    }
+                    else if (item.SanPham.KhuyenMai.LoaiKM == 1 && item.HoaDon.NgayBan <= item.SanPham.KhuyenMai.KetThucKM)
+                    {
+                        total += Convert.ToDouble(item.SoLuong * (item.SanPham.GiaBan * (1 - Convert.ToDouble(item.SanPham.KhuyenMai.NoiDungKM) / 100)));
+                    }
+                    else
+                    {
+                        total += Convert.ToDouble(item.SoLuong * item.SanPham.GiaBan);
+                    }
+                }
+                @String.Format("{0:N0}đ", total)
+            </td>
+
+            <td>
+                <a href="/Admin/ChiTietHoaDons/Details/@item.ID_SP" class="btn btn-sm btn-info"> <i class="fa-sharp fa-solid fa-circle-info"></i></a>
+            </td>
+        </tr>
+    }
+
+</table>
+<p>
+    <button type="button" name="back" class="btn btn-info btn-md" onclick="location.href='/Admin/HoaDons/Index'"><i class="fa-solid fa-left-long" style="padding-right: 5px;"></i>Quay lại</button>
+</p>

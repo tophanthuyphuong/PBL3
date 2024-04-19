@@ -1,0 +1,138 @@
+﻿@model PBL3.Models.Model_View.GioHangs
+
+@{
+    ViewBag.Title = "GIỏ hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link href="~/Content/GioHang.css" rel="stylesheet" />
+}
+<h2 style="color: #359DD9">Giỏ Hàng</h2>
+@if (Model != null)
+{
+    using (Html.BeginForm("ThayDoi", "GioHangs", FormMethod.Post))
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width: 50%">Tên sản phẩm</th>
+                    <th style="width: 10%">Số lượng</th>
+                    <th style="width: 25%">Giá bán</th>
+                    <th style="width: 15%">Trạng thái</th>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @{ double total1 = 0.0;}
+                @foreach (var item in Model.Items)
+                {
+                    double total = 0.0;
+                    if (item.SanPhamGioHang.KhuyenMai.Status == 1)
+                    {
+                        if (item.NoiDungKhuyenMai < 100)
+                        {
+                            total = Convert.ToDouble(item.SanPhamGioHang.GiaBan) * (1 - Convert.ToDouble(item.NoiDungKhuyenMai) / 100);
+                            total = total * Convert.ToDouble(item.SoLuong);
+                        }
+                        else
+                        {
+                            total = Convert.ToDouble((item.SanPhamGioHang.GiaBan - (Convert.ToDouble(item.NoiDungKhuyenMai))) * item.SoLuong);
+                        }
+                    }
+                    else
+                    {
+                        total = Convert.ToDouble(item.SanPhamGioHang.GiaBan * item.SoLuong);
+                    }
+                    if(item.Status == true)
+                    {
+                        total1 = total1 + total;
+                    }
+                    <tr>
+                        <td style="text-align: left; display: flex; align-items: center">
+                            <img src="~/Anh/@item.SanPhamGioHang.Anh" alt="" style="height: 100%; width: 100px;">
+                            @Html.DisplayFor(model => item.SanPhamGioHang.TenSP)
+                        </td>
+                        <td>
+
+                            <input type="hidden" value="@item.SanPhamGioHang.ID_SP" name="idSanPham" />
+                            <input type="number" value="@item.SoLuong" name="SoLuongSanPham" min="0" max="@item.SanPhamGioHang.SoLuong" class="pick-number" />
+                        </td>
+                        <td>
+                            @String.Format("{0:N0}đ", total)
+
+                        </td>
+                        <td>
+                            <input type="checkbox" value="1" name="status" checked="@item.Status" class="checkbox" style="width: 25px; height: 25px" />
+                            <input type="checkbox" value="0" name="status" @(item.Status ? "" : "checked=\"checked\"") class="checkbox" />
+                        </td>
+                        <td>
+                            <a href="~/GioHangs/XoaSanPham/@item.SanPhamGioHang.ID_SP" class="btn btn-danger">
+                                <i class="fa-solid fa-trash" style="color: white"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+
+                }
+                <tr style="border: 2px solid #359DD9;">
+                    <td style="font-weight: bold">Tổng tiền</td>
+                    <td></td>
+                    <td>@String.Format("{0:N0}đ", total1)</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="body__button">
+                <section>
+
+                    <button type="submit" class="button btn-primary"> Cập nhật giỏ hàng </button>
+                    <a href="~/GioHangs/HuyGioHang" class="button btn-danger "> Hủy giỏ hàng </a>
+                    @if (Model.Items.Count(p => p.Status == true) != 0)
+                    {
+                        <button type="button" class="button btn-save" onclick="window.location.href='/MuaHangs/XacNhanGioHang'">
+                            Đặt mua
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="button" class="button btn-save">
+                            Đặt mua
+                        </button>
+                        <span class="overlay"></span>
+
+                        <div class="modal-box">
+                            <i class="fa-regular fa-circle-xmark" style=" font-size: 70px; color: red;"></i>
+                            <h2>Failed!</h2>
+                            <h3>Mua hàng thất bại!</h3>
+
+                            <div class="buttons">
+                                <a href="~/Gio-hang" class="button-back"> Trở lại giỏ hàng </a>
+
+
+                            </div>
+                        </div>
+                    }
+                </section>
+
+            </div>
+
+        </div>
+    }
+}
+
+<script>
+    $('input[name="status"]').on('change', function () {
+        if ($(this).is(':checked')) {
+            $(this).next('input[name="status"][value="0"]').first().prop('checked', false);
+        } else {
+            $(this).next('input[name="status"][value="0"]').first().prop('checked', true);
+        }
+    });
+</script>
+<style>
+    input[name="status"][value="0"] {
+        display: none;
+    }
+</style>
+
+

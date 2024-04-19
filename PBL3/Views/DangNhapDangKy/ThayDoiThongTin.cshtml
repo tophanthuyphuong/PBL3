@@ -1,0 +1,118 @@
+﻿@model PBL3.Models.User
+
+@{
+    ViewBag.Title = "Thay đổi thông tin cá nhân";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link href="~/Content/ThayDoiThongTin.css" rel="stylesheet" />
+}
+@using (Html.BeginForm("ThayDoiThongTin", "DangNhapDangKy", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <h2 style="color: #359DD9">
+        THAY ĐỔI THÔNG TIN
+    </h2>
+    <div class="main-container">
+
+        <div class="avatar">
+            <div class="row">
+                <label for="information">Ảnh đại diện:</label>
+                <br>
+                <div class="avatar-img">
+                    <img src="~/Anh/@Model.Anh" style="height:200px;width:200px;margin:10px" id="preview" />
+                </div>
+                <br>
+                <input type="file" id="uploadhinh" name="uploadhinh" accept="image/*" />
+
+                @Html.ValidationMessageFor(model => model.Anh, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <label for="information">Họ và Tên:</label>
+                <br>
+                @Html.HiddenFor(model => model.ID_User)
+                @Html.HiddenFor(model => model.Anh)
+                @Html.EditorFor(model => model.Ten, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Ten, "", new { @class = "text-danger" })
+            </div>
+            <div class="row">
+                <label for="information">Ngày Sinh:</label>
+                <br>
+                @Html.TextBoxFor(model => model.NgaySinh, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+                @Html.Raw(ViewBag.ErrorTuoi)
+            </div>
+            <div class="row">
+                <label for="information">Giới tính:</label>
+                <br>
+                @Html.DropDownList("GioiTinh",
+                       new SelectList(
+                              new List<Object>{
+                                      new { value = true , text = "Nam"  },
+                                      new { value = false , text = "Nữ" },
+                                },
+                              "value",
+                              "text",
+                               Model.GioiTinh
+                       ), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
+            </div>
+            <div class="row">
+                <label for="information">Số điện thoại:</label>
+                <br>
+                @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+            </div>
+            <div class="row">
+                <label for="information">Địa chỉ:</label>
+                <br>
+                @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+            </div>
+            <div class="row">
+                <label for="information">Email:</label>
+                <br>
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    </div>
+    <div class="body__button">
+        @*<section>*@
+
+        <button type="submit" class="button btn-save">
+            <i class="fa-solid fa-floppy-disk" style="padding-right: 5px"></i>
+            Lưu
+        </button>
+        <a href="Thong-tin-ca-nhan" class="button btn-cancel">
+            <i class="fa-solid fa-xmark" style="padding-right: 6px"></i>Hủy
+        </a>
+        @*<span class="overlay"></span>
+
+                <div class="modal-box">
+                    <i class="fa-regular fa-circle-check" style="font-size: 70px; color: #4070f4;"></i>
+                    <h2>Completed!</h2>
+                    <h3>Chỉnh sửa thông tin thành công</h3>
+
+                    <div class="buttons">
+                        <button type="submit"class="close-btn"> Close</button>
+
+                    </div>
+                </div>
+            </section>*@
+    </div>
+    <script>
+        uploadhinh.onchange = evt => {
+            const [file] = uploadhinh.files
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+            }
+        }
+    </script>
+
+
+}
+
+

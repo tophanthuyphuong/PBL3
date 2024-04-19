@@ -1,0 +1,179 @@
+﻿.container__contact {
+    height: 600px;
+    position: relative;
+}
+
+.container__contact-label {
+    position: absolute;
+    top: 0;
+    left: 170px;
+
+}
+
+.btn--more {
+    color: #359DD9;
+    border: 2px solid rgba(66, 66, 66, 0.03);
+    border-color: #359DD9;
+    margin-top: 40px;
+    transition: .4s ease;
+}
+
+    .btn--more:hover {
+        background-color: #359DD9;
+        color: white;
+        opacity: 1;
+    }
+
+.h4 {
+    margin: 0;
+    padding: 7px;
+    font-size: 20px;
+    flex: 1;
+    cursor: default;
+    color: white;
+    font-weight: bold
+}
+
+.input-info {
+    padding: 10px 10px;
+}
+
+.info {
+    height: 40px;
+    padding: 6px 10px;
+    border-radius: 5px;
+    border: 2px white;
+}
+
+.contact {
+    width: 540px;
+    height: 125px;
+}
+
+.container__contact .row {
+    margin: 0;
+}
+
+.container__contact .h2 {
+    margin: 15px 0px;
+}
+.row{
+    display:flex;
+    justify-content:center;
+}
+.body__button {
+    width: 450px;
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity .2s ease;
+    border: none;
+}
+
+    .button:hover {
+        opacity: 0.7;
+    }
+
+    .button + .button {
+        margin-left: 16px;
+    }
+
+.btn-save {
+    background-color: #4848F4;
+    color: white;
+    padding: 15px 30px;
+}
+
+.btn-cancel {
+    background-color: #FF0000;
+    color: white;
+}
+
+.modal-box {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 380px;
+    width: 100%;
+    padding: 30px 20px;
+    border-radius: 24px;
+    background-color: #fff;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+.close-btn {
+    background-color: #4848F4;
+    color: white;
+    border: none;
+    padding: 5px 5px;
+    border-radius: 5px;
+}
+
+.overlay {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+ 
+}
+
+section.active .overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-box i {
+    font-size: 70px;
+    color: #4070f4;
+}
+
+section.active .modal-box {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-box h3 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+.modal-box button {
+    font-size: 14px;
+    padding: 10px 20px;
+    margin: 0 10px;
+}
+
+.modal-box h2 {
+    margin-top: 20px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #333;
+}
+.buttons {
+    background-color: #359DD9;
+    padding: 10px 15px;
+    border-radius: 15px;
+}
+
+.button-back {
+    color: white;
+}

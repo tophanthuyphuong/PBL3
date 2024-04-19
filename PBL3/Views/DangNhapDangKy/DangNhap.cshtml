@@ -1,0 +1,116 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Login</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <link rel="stylesheet" href="~/fonts/Quicksand-VariableFont_wght.ttf">
+    <!-- Custom styles for this template-->
+    <link href="~/Content/sb-admin-2.css" rel="stylesheet" />
+
+</head>
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+
+                            <div class="col-lg-6" style="padding-bottom: 130px;" ">
+                                <div class="p-5">
+                                    <img src="~/Anh/img/Logo.png" alt="" style="width: 320px; padding: 0 0 50px 30px">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4" style="font-family: 'Quicksand'; font-style: italic; font-weight: bold;">Đăng nhập</h1>
+                                    </div>
+                                    <form class="form" action="/DangNhapDangKy/DangNhap" method="post">
+                                        <div class="row">
+                                            <div class="col-form-label">Tên đăng nhập</div>
+                                            <div class="col-form-label" , style="color: red;">*</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user"
+                                                   id="username" name="username">
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-form-label">Mật khẩu</div>
+                                            <div class="col-form-label" , style="color: red;">*</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user"
+                                                   id="password" name="password">
+                                        </div>
+                                        <div class="form-group">
+                                            <p>@Html.Raw(ViewBag.Error) </p>
+                                        </div>
+
+                                        <hr>
+                                        <button type="submit" name="submit" class="btn btn-primary btn-user btn-block">Đăng nhập</button>
+                                    </form>
+                                    <hr>
+
+                                    <div class="text-center">
+                                        <a class="small" href="~/dang-ky">Chưa có tài khoản? Đăng ký!</a>
+                                    </div>
+                                    <div class="rect--small">
+                                        <div class="rect"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 d-none d-lg-block ">
+                                <div class="bg-login-image">
+                                    <a href="~/Trang-chu">
+                                        <img src="~/Anh/img/x-circle.png" alt="" style="position: absolute; right: 0; padding: 5px;">
+                                    </a>
+                                    <img src="~/Anh/img/login_img.png" alt="" style="width: 135%; padding: 100px 0 0 0px; position: absolute; left: -145px;">
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>

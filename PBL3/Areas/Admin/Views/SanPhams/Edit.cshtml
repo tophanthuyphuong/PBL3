@@ -1,0 +1,127 @@
+﻿@model PBL3.Models.SanPham
+
+@{
+    ViewBag.Title = "Thay đổi sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Thay đổi sản phẩm</h2>
+
+@using (Html.BeginForm("Edit", "SanPhams", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <hr />
+    <div class="form-horizontal px-5">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID_SP)
+        @Html.HiddenFor(model => model.Anh)
+        <div class="form-group">
+            <label class="py-1">Danh mục<span class="text-danger">(*)</span></label>
+            <div class="col-md-5 py-1">
+                @Html.DropDownList("ID_Danhmuc", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ID_Danhmuc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="py-1">Tên sản phẩm<span class="text-danger">(*)</span></label>
+            <div class="col-md-5 py-1">
+                @Html.EditorFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenSP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="py-1">Khuyến mãi <span class="text-danger">(*)</span></label>
+            <div class="col-md-5 py-1">
+                @Html.DropDownList("ID_KM", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ID_KM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="py-1">Số lượng</label>
+            <div class="col-md-5 py-1">
+                @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="py-1">Giá bán<span class="text-danger">(*)</span></label>
+            <div class="col-md-5 py-1">
+                @Html.EditorFor(model => model.GiaBan, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GiaBan, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="py-1">Nhãn hiệu</label>
+            <div class="col-md-5 py-1">
+                @Html.EditorFor(model => model.NhanHieuSP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NhanHieuSP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="py-1">Mẫu</label>
+            <div class="col-md-5 py-1">
+                @Html.EditorFor(model => model.MauSP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MauSP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="py-1">Mô tả</label>
+            <div class="col-md-5 py-1">
+                @Html.EditorFor(model => model.MoTaSP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MoTaSP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="py-1">Ảnh sản phẩm</label>
+            <div class="col-md-5 py-1">
+                <img src="~/Anh/@Model.Anh" style="height:200px;width:200px;margin:10px" id="preview"/>
+                <input type="file" id="uploadhinh" name="uploadhinh" accept="image/*" value="C:/Users/LENOVO/OneDrive - The University of Technology/Desktop/PBL3.1/PBL3/PBL3/Anh/@Model.Anh" />
+                @Html.ValidationMessageFor(model => model.Anh, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="py-1">Trạng thái<span class="text-danger">(*)</span></label>
+            <div class="col-md-5 py-1">
+                @Html.DropDownList("Status",
+                       new SelectList(
+                              new List<Object>{
+                                   new { value = 0 , text = "Đã xóa"  },
+                                   new { value = 1 , text = "Tồn tại" },
+                                },
+                              "value",
+                              "text",
+                               Model.Status
+                       ), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group" style="display: flex; padding: 20px 0">
+            <div class="col-md-offset-2 text-right pe-4">
+                <button type="submit" value="Save" class="btn btn-md btn-success"><i class="fa-solid fa-floppy-disk"></i> Lưu thay đổi</button>
+            </div>
+            <div class="col-md-offset-2 ">
+                <button type="button" name="back" class="btn btn-info btn-md" onclick="location.href='/Admin/SanPhams/Index'"><i class="fa-solid fa-left-long" style="padding-right: 5px;"></i>Quay lại</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        uploadhinh.onchange = evt => {
+            const [file] = uploadhinh.files
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+            }
+        }
+    </script>
+}
+
+
